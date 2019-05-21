@@ -61,4 +61,61 @@ function mmc_whatever(){
 }
 //add_action( 'loop_start', 'mmc_whatever', 1 );
 
+
+/**
+ * All Menu Locations for this theme
+ */
+function mmc_menu_areas(){
+	register_nav_menus( array(
+		//code-friendly => human-friendly
+		'main_menu' 	=> 'Main Menu',
+		'social_menu' 	=> 'Social Media Menu',
+	) );
+}
+add_action( 'init', 'mmc_menu_areas' );
+
+//HTML output for Social Media Menu. Call this in header.php
+function mmc_fancy_social_menu(){
+	//Social Media Links
+		 wp_nav_menu( array(
+		 	'theme_location' 	=> 'social_menu',
+		 	'container' 		=> false, //no container
+		 	'menu_class'		=> 'social-navigation',
+		 	'fallback_cb'		=> false, //do nothing if no menu in this location
+		 	'link_before'		=> '<span class="screen-reader-text">',
+		 	'link_after'		=> '</span>',
+		 ) );
+}
+
+/**
+ * Load the Genericons font (enqueue)
+ */
+function mmc_stylesheets(){
+	wp_enqueue_style( 'genericons', get_stylesheet_directory_uri() . '/genericons/genericons.css' );
+}
+add_action( 'wp_enqueue_scripts', 'mmc_stylesheets' );
+
+/**
+ * Pagination for archives and singular things
+ */
+function mmc_pagination(){
+	//if we are looking at a single post, show the single pagination
+	if( is_singular() ){
+		previous_post_link();
+		next_post_link();
+	}
+	//otherwise show the numbered pagination (archive view)
+	else{
+		//numbered pagination
+		the_posts_pagination();
+
+		//next/previous buttons
+		//next_posts_link();
+		//previous_posts_link();
+	}
+}
+
+
+
+
 //no close php

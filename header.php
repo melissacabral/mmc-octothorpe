@@ -19,13 +19,18 @@
 					
 				</a></h1>
 			<h2><?php bloginfo('description'); ?></h2>
-			<nav>
-				<ul class="nav">
-					<?php wp_list_pages( array( 
-						'title_li' => '', 
-					) ); ?>
-				</ul>
-			</nav>
+			
+		<?php 
+		//Main Navigation
+		wp_nav_menu( array(
+			'theme_location' 	=> 'main_menu', //a registered menu area
+			'container' 		=> 'nav', //div or nav
+			'container-class'	=> 'main-menu-container', //nav class="main-menu-container"
+			'menu_class'		=> 'main-menu', //ul class="main-menu"
+		) ); ?>
+
+		<?php mmc_fancy_social_menu(); ?>
+
 
 		<?php get_search_form(); //default search bar or optionally add searchform.php?>
 		</div>

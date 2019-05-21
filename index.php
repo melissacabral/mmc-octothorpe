@@ -30,6 +30,13 @@
 			<!-- end post -->
 			<?php 
 				} //end while
+			?>
+			
+			<section class="pagination">
+				<?php mmc_pagination(); ?>
+			</section>
+
+			<?php
 			} //end if there are posts
 			else{
 				echo 'Sorry, no posts to show';

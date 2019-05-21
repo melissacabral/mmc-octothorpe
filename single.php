@@ -14,6 +14,7 @@
 				</h2>
 				<div class="entry-content">
 					<?php the_content(); ?>
+					<?php wp_link_pages(); //support "paged" posts ?>
 				</div>
 				<div class="postmeta">
 					<span class="author">by: <?php the_author(); ?></span>
@@ -32,6 +33,13 @@
 			<!-- end post -->
 			<?php 
 				} //end while
+				?>
+			
+			<section class="pagination">
+				<?php mmc_pagination(); ?>
+			</section>
+
+			<?php
 			} //end if there are posts
 			else{
 				echo 'Sorry, no posts to show';
