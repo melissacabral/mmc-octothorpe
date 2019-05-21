@@ -6,6 +6,7 @@
 				while( have_posts() ){
 					the_post(); ?>
 			<article id="post-<?php the_ID(); ?>" class="post">
+				<?php the_post_thumbnail( 'large' ); ?>
 				<h2 class="entry-title"> 
 					<a href="<?php the_permalink(); ?>"> 
 						<?php the_title(); ?> 

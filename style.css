@@ -35,6 +35,13 @@ a:focus {
   text-decoration: underline;
 }
 
+.header{
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+.custom-logo{
+  max-width: 200px;
+}
 header nav {
   background: #eee;
   margin: 1em 0;
