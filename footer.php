@@ -1,10 +1,11 @@
 	</div>	<!-- end .wrapper -->
 
 	<footer class="footer contentinfo">
-		<?php dynamic_sidebar('footer-widgets'); ?>
+		<div class="footer-widgets">
+			<?php dynamic_sidebar('footer-widgets'); ?>
+		</div>
 
-
-		<small>
+		<small class="legal">
 			&copy; 2014-2019 by <?php bloginfo('name'); ?>. All Rights Reserved. 
 			<?php the_privacy_policy_link(); ?>
 			

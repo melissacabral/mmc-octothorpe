@@ -130,6 +130,15 @@ function mmc_widget_areas(){
 		'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
+		'name'          => 'Page Sidebar',
+		'id'            => 'page-sidebar',   
+		'description'   => 'Appears next to static pages',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
 		'name'          => 'Footer Widgets',
 		'id'            => 'footer-widgets',   
 		'description'   => 'Appears at the bottom of every screen',
@@ -140,7 +149,6 @@ function mmc_widget_areas(){
 	) );
 }
 add_action( 'widgets_init', 'mmc_widget_areas' );
-
 
 
 

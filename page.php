@@ -30,6 +30,6 @@
 		</main>
 		<!-- end #content -->
 
-<?php get_sidebar(); ?>
+<?php get_sidebar('page'); //sidebar-page.php ?>
 <?php get_footer(); ?>
 
