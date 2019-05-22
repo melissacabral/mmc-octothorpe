@@ -115,6 +115,32 @@ function mmc_pagination(){
 	}
 }
 
+/**
+ * Widget Areas (Dynamic Sidebars)
+ */
+function mmc_widget_areas(){
+	//register one widget area
+	register_sidebar( array(
+		'name'          => 'Blog Sidebar',
+		'id'            => 'blog-sidebar',   
+		'description'   => 'Appears next to blog posts and archives',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => 'Footer Widgets',
+		'id'            => 'footer-widgets',   
+		'description'   => 'Appears at the bottom of every screen',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+}
+add_action( 'widgets_init', 'mmc_widget_areas' );
+
 
 
 

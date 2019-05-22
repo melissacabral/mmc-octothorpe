@@ -1,6 +1,9 @@
 	</div>	<!-- end .wrapper -->
 
 	<footer class="footer contentinfo">
+		<?php dynamic_sidebar('footer-widgets'); ?>
+
+
 		<small>
 			&copy; 2014-2019 by <?php bloginfo('name'); ?>. All Rights Reserved. 
 			<?php the_privacy_policy_link(); ?>
