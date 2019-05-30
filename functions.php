@@ -1,8 +1,12 @@
 <?php
+//required stuff!
+//max width of youtube and other embeds
+if ( ! isset( $content_width ) ) $content_width = 700;
+
 //activate sleeping features of WP
 
 //post formats allow different styles on different kinds of posts. make sure to use post_class() on your post container. Only activate the post-formats you want to use
-add_theme_support( 'post-formats', array( 'image', 'link', 'gallery', 'audio', 'video', 'aside', 'chat', 'quote' , 'status' ) );
+//add_theme_support( 'post-formats', array( 'image', 'link', 'gallery', 'audio', 'video', 'aside', 'chat', 'quote' , 'status' ) );
 
 //featured images
 add_theme_support( 'post-thumbnails' );
@@ -88,12 +92,15 @@ function mmc_fancy_social_menu(){
 }
 
 /**
- * Load the Genericons font (enqueue)
+ * Load all CSS and JS this theme needs
  */
+add_action( 'wp_enqueue_scripts', 'mmc_stylesheets' );
 function mmc_stylesheets(){
 	wp_enqueue_style( 'genericons', get_stylesheet_directory_uri() . '/genericons/genericons.css' );
+
+	if ( is_singular() ) wp_enqueue_script( "comment-reply" );
 }
-add_action( 'wp_enqueue_scripts', 'mmc_stylesheets' );
+
 
 /**
  * Pagination for archives and singular things
@@ -149,6 +156,42 @@ function mmc_widget_areas(){
 	) );
 }
 add_action( 'widgets_init', 'mmc_widget_areas' );
+
+/**
+ * Count the Comments and trackbacks separately
+ */
+add_filter( 'get_comments_number', 'mmc_comment_count' );
+function mmc_comment_count(){
+	//post id
+	global $id;
+	$comments = get_approved_comments($id);
+
+	$count = 0;
+	foreach( $comments as $comment ){
+		//if it's a real comment, increase the count
+		if( $comment->comment_type == '' ){
+			$count ++;
+		}
+	}
+	return $count;
+}
+
+//count trackbacks and pingbacks
+function mmc_pings_count(){
+	//post id
+	global $id;
+	$comments = get_approved_comments($id);
+
+	$count = 0;
+	foreach( $comments as $comment ){
+		//if it's not real comment, increase the count
+		if( $comment->comment_type != '' ){
+			$count ++;
+		}
+	}
+	return $count;
+}
+
 
 
 
