@@ -8,17 +8,25 @@
 	<?php wp_head(); //HOOK. required for plugins and admin bar to work ?>
 </head>
 <body <?php body_class(); ?>>
+	<?php 
+	//custom header background style
+	$style_attribute = '';
+	if( has_custom_logo() ){
+		$style_attribute = 'style="background-image:url(' . get_header_image() . ');"';
+	} ?>
 
-	<header class="header" style="background-image:url(<?php header_image(); ?>);">
+	<header class="header" <?php echo $style_attribute; ?>>
 		<div class="header-bar">
 
-			<?php the_custom_logo(); ?>
+			<div class="branding">
+				<?php the_custom_logo(); ?>
 
-			<h1 class="site-title"><a href="<?php echo home_url('/'); ?>">
-				<?php bloginfo('name'); ?>
-					
-				</a></h1>
-			<h2><?php bloginfo('description'); ?></h2>
+				<h1 class="site-title"><a href="<?php echo home_url('/'); ?>">
+					<?php bloginfo('name'); ?>
+						
+					</a></h1>
+				<h2><?php bloginfo('description'); ?></h2>
+			</div>
 			
 		<?php 
 		//Main Navigation
