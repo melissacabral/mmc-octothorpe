@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html <?php language_attributes(); ?>>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
 	<?php 
 	//custom header background style
 	$style_attribute = '';
-	if( has_custom_logo() ){
+	if( has_custom_header() ){
 		$style_attribute = 'style="background-image:url(' . get_header_image() . ');"';
 	} ?>
 
@@ -19,7 +19,9 @@
 		<div class="header-bar">
 
 			<div class="branding">
-				<?php the_custom_logo(); ?>
+				<?php if(is_front_page()){
+					the_custom_logo();
+					} ?>
 
 				<h1 class="site-title"><a href="<?php echo home_url('/'); ?>">
 					<?php bloginfo('name'); ?>

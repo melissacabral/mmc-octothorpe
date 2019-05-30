@@ -28,7 +28,7 @@
 				<!-- end postmeta -->
 			</article>
 
-			<?php comments_template(); //include the list of comments and form ?>
+			<?php comments_template(); //include comments.php ?>
 
 			<!-- end post -->
 			<?php 
