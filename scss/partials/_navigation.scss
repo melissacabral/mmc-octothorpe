@@ -35,7 +35,8 @@
     color:$header-text-color;
 }
 /*current page indicator*/
-.header nav .current_page_item > a{
+.header nav .current_page_item > a,
+.header nav .current-menu-item > a{
     background-color: rgba($main-color,.4); 
 }
 

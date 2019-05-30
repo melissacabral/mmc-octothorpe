@@ -470,7 +470,8 @@ a img.aligncenter {
 }
 
 /*current page indicator*/
-.header nav .current_page_item > a {
+.header nav .current_page_item > a,
+.header nav .current-menu-item > a {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
