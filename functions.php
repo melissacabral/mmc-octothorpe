@@ -96,6 +96,8 @@ function mmc_fancy_social_menu(){
  */
 add_action( 'wp_enqueue_scripts', 'mmc_stylesheets' );
 function mmc_stylesheets(){
+	//do this instead of a <link> in your header to style.css
+	wp_enqueue_style( 'theme-style', get_stylesheet_uri()  );
 	wp_enqueue_style( 'genericons', get_stylesheet_directory_uri() . '/genericons/genericons.css' );
 
 	if ( is_singular() ) wp_enqueue_script( "comment-reply" );
@@ -154,6 +156,15 @@ function mmc_widget_areas(){
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+	register_sidebar( array(
+		'name'          => 'Shop Widgets',
+		'id'            => 'shop-widgets',   
+		'description'   => 'Appears on WooCommerce shop screens',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
 }
 add_action( 'widgets_init', 'mmc_widget_areas' );
 
@@ -192,7 +203,58 @@ function mmc_pings_count(){
 	return $count;
 }
 
+/**
+ * WooCommerce Additions
+ */
+add_theme_support('woocommerce');
+add_theme_support('wc-product-gallery-zoom');
+add_theme_support('wc-product-gallery-lightbox');
+add_theme_support('wc-product-gallery-slider');
 
+
+//fix the <main> container on woo templates
+
+function mmc_container_start(){
+	echo '<main class="content">';
+}
+
+function mmc_container_end(){
+	echo '</main>';
+}
+
+//remove existing <main>
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+add_action( 'woocommerce_before_main_content', 'mmc_container_start', 10 );
+add_action( 'woocommerce_after_main_content', 'mmc_container_end', 10 );
+
+
+
+//Show the current cart contents (for the header)
+function mmc_cart_contents(){
+?>
+	<a class="cart-customlocation" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>"><?php echo sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?> - <?php echo WC()->cart->get_cart_total(); ?></a>
+<?php 
+}
+
+
+/**
+ * Show cart contents / total Ajax
+ */
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+	global $woocommerce;
+
+	ob_start();
+
+	?>
+	<a class="cart-customlocation" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php _e('View your shopping cart', 'woothemes'); ?>"><?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?> - <?php echo $woocommerce->cart->get_cart_total(); ?></a>
+	<?php
+	$fragments['a.cart-customlocation'] = ob_get_clean();
+	return $fragments;
+}
 
 
 //no close php

@@ -2,10 +2,11 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
 
 	<?php wp_head(); //HOOK. required for plugins and admin bar to work ?>
+
+	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
 </head>
 <body <?php body_class(); ?>>
 	<?php 
@@ -43,6 +44,9 @@
 
 
 		<?php get_search_form(); //default search bar or optionally add searchform.php?>
+
+		<?php mmc_cart_contents(); ?>
+
 		</div>
 	</header>
 	<div class="wrapper">
