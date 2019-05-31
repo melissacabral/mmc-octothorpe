@@ -14,6 +14,13 @@
 							<?php the_title(); ?> 
 						</a>
 					</h2>
+
+					<?php 
+					//show the project categories for this piece of work
+					the_terms( get_the_ID(), 'project_category', 
+								'<h3 class="project-category"> ', 
+								', ', 
+								'</h3>' ); ?>
 				</div>
 
 				<div class="entry-content">
@@ -25,7 +32,17 @@
 					//get one custom field value
 					echo get_post_meta( get_the_ID(), 'Year', true ); ?>
 
+					<?php 
+					//show the project categories for this piece of work
+					the_terms( get_the_ID(), 'skill', 
+								'<div class="skills"> <h3>Skills Used</h3>', 
+								'<br> ', 
+								'</div>' ); ?>
+
 					<?php the_content(); ?>
+
+					
+
 					<?php wp_link_pages(); //support "paged" posts ?>
 				</div>
 				

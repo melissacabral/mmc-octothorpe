@@ -1,7 +1,7 @@
 /* ==Portfolio */
 .post-type-archive-portfolio_piece,
 .single-portfolio_piece,
-.tax-portfolio_category,
+.tax-project_category,
 .tax-skill{
 	
 	.content{
@@ -94,7 +94,7 @@
 @media screen and (min-width:$breakpoint-1) {
 	.post-type-archive-portfolio_piece,
 	.single-portfolio_piece,
-	.tax-portfolio_category,
+	.tax-project_category,
 	.tax-skill{
 		.content{
 			width:100%;

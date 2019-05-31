@@ -1,6 +1,6 @@
 <?php get_header(); //include header.php ?>
 		<main class="content">
-			<h1 class="content-title"><?php post_type_archive_title(); ?></h1>
+			<h1 class="content-title">Portfolio</h1>
 
 			<?php 
 			//show all terms in our custom taxonomy
