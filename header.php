@@ -6,7 +6,7 @@
 
 	<?php wp_head(); //HOOK. required for plugins and admin bar to work ?>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+	
 </head>
 <body <?php body_class(); ?>>
 	<?php 
