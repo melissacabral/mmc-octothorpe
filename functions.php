@@ -257,4 +257,85 @@ function woocommerce_header_add_to_cart_fragment( $fragments ) {
 }
 
 
+/**
+ * Example of how to customize a default loop/query
+ * change the nuumber of posts on the portfolio archive
+ */
+add_action( 'pre_get_posts', 'mmc_portfolio_query' );
+function mmc_portfolio_query( $query ){
+	if( $query->is_post_type_archive('portfolio_piece') ){
+		//set any of the WP_Query parameters
+		$query->set( 'posts_per_page', 5 );
+		$query->set( 'orderby', 'rand' );
+	}
+}
+
+/**
+ * Customization API additions
+ * Adds custom colors, fonts, layout, etc
+ */
+add_action( 'customize_register', 'mmc_customize' );
+function mmc_customize( $wp_customize ){
+	//add a setting for "footer background color"
+	$wp_customize->add_setting( 'footer_background', array(
+		'default' => '#dddddd',
+	) );
+
+	//add the UI for the color picker
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 
+		'footer_background_ui', array(
+			'section' => 'colors', //built in
+			'settings' => 'footer_background', 
+			'label'	=> 'Footer Background Color', //human friendly
+		)  ) );
+
+	//color scheme radio button
+	$wp_customize->add_setting( 'color_scheme', array( 'default' => 'light' ) );
+
+	$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+		'color_scheme_ui', array(
+			'section' 	=> 'colors',
+			'settings' 	=> 'color_scheme',
+			'label'		=> 'Color Scheme',
+			'type' 		=> 'radio',
+			'choices'	=> array(
+								'light' => 'Light',
+								'dark' => 'Dark',
+							),
+		) ) );
+} //customizer function
+
+
+//Add the CSS and logic to display the customized settings
+add_action( 'wp_head', 'mmc_custom_css' );
+function mmc_custom_css(){
+	?>
+	<style type="text/css">
+		.footer{
+			background-color:<?php echo get_theme_mod( 'footer_background' ); ?>;
+			color:<?php echo getContrastYIQ( get_theme_mod( 'footer_background' ) ); ?>;
+		}
+	</style>
+	<?php
+}
+
+function getContrastYIQ($hexcolor){
+	$r = hexdec(substr($hexcolor,0,2));
+	$g = hexdec(substr($hexcolor,2,2));
+	$b = hexdec(substr($hexcolor,4,2));
+	$yiq = (($r*299)+($g*587)+($b*114))/1000;
+	return ($yiq >= 128) ? 'black' : 'white';
+}
+
+//enqueue the color scheme
+add_action( 'wp_enqueue_scripts', 'mmc_custom_scheme' );
+function mmc_custom_scheme(){
+	//get the color scheme they chose
+	$color_scheme = get_theme_mod('color_scheme') . '.css';
+	$css_url = get_stylesheet_directory_uri() . "/color-schemes/" . $color_scheme;
+
+	wp_enqueue_style( 'custom-color-scheme', $css_url );
+}
+
+
 //no close php
